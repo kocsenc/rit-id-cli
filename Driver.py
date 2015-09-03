@@ -15,7 +15,11 @@ def main():
 
     adapter = FileAdapter('out.csv')
 
-    collect(adapter)
+    while True:
+        try:
+            collect(adapter)
+        except KeyboardInterrupt:
+            print("Closing, thanks!")
 
 
 def collect(adapter):
@@ -33,7 +37,7 @@ def collect(adapter):
 
             fname = input("First Name: ")
             lname = input("Last Name: ")
-            rit_username = input("RIT username: ")
+            rit_username = validate_username(input("RIT username: "))
 
             # print("Name:\t\t", fname, lname)
             # print("RIT username:\t", rit_username)
@@ -43,13 +47,24 @@ def collect(adapter):
         check_in(adapter.student_dict[hashed_student_id])
 
     else:
-        print("Try again.\n")
+        print("Are you sure you swiped your RIT id? Try again.\n")
+
+
+def validate_username(raw_username):
+    regex = re.compile('(\w{2,3}\d{4})')
+    match = re.search(regex, raw_username)
+
+    username = ""
+    if match:
+        username = match.group(0)
+
+    return username
 
 
 def check_in(student):
     # TODO: Perform check in action
 
-    print("Thanks, %s. You are good to go! \t=====>" % student.first_name)
+    print("Thanks, %s. You are good to go! \t=====>\n\n\n\n\n" % student.first_name)
 
 
 if __name__ == "__main__":
