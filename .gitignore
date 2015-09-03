@@ -2,7 +2,7 @@
 __pycache__/
 *.py[cod]
 
-out.txt
+out.csv
 
 # C extensions
 *.so
