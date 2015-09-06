@@ -4,8 +4,8 @@ import re
 import getpass
 import hashlib
 
-from datetime import datetime
-from DatastoreAdapters.FileAdapter import FileAdapter
+from DatastoreAdapters.FileDatastoreAdapter import FileDatastoreAdapter
+from AttendanceAdapters.FileAttendanceAdapter import FileAttendanceAdapter
 
 
 def main():
@@ -14,17 +14,18 @@ def main():
         "It cannot be decrypted back.\n"
         "Press 'q' to quit\n")
 
-    data_source = FileAdapter('db.csv')
+    data_source = FileDatastoreAdapter('db.csv')
+    attendance_adapter = FileAttendanceAdapter()
 
     while True:
         try:
-            collect(data_source, take_attendance=True)
+            collect(data_source, attendance_adapter, take_attendance=True)
         except KeyboardInterrupt:
             print("Closing, thanks!")
             break
 
 
-def collect(adapter, take_attendance=True):
+def collect(data_source, attendance_adapter, take_attendance=True):
     raw_id = getpass.getpass("Please swipe your RIT ID").strip()
     if raw_id.lower() == 'q' or raw_id.lower() == 'quit':
         raise KeyboardInterrupt
@@ -38,15 +39,15 @@ def collect(adapter, take_attendance=True):
         issue_number = match.group("issue_number")[0]
 
         # If the student wasn't registered before, register them
-        if hashed_student_id not in adapter.student_dict:
+        if hashed_student_id not in data_source.student_dict:
             (fname, lname, rit_username) = register()
-            adapter.save(hashed_student_id, fname, lname, rit_username, issue_number)
+            data_source.save(hashed_student_id, fname, lname, rit_username, issue_number)
 
         # At this point we can guarantee that a student object is ready for use.
-        student = adapter.student_dict[hashed_student_id]
+        student = data_source.student_dict[hashed_student_id]
 
         if take_attendance:
-            check_in(adapter.student_dict[hashed_student_id])
+            check_in(attendance_adapter, student)
 
 
     else:

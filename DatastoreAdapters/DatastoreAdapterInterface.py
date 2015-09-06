@@ -1,7 +1,7 @@
 __author__ = 'kocsenc'
 
 
-class AdapterInterface:
+class DatastoreAdapterInterface:
     def save(self, hashed_sid, fname, lname, rit_username, issue_number):
         raise NotImplementedError()
 

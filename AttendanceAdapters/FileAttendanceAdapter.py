@@ -2,14 +2,13 @@ import os
 
 __author__ = 'kocsenc'
 
-from Student import Student
 from datetime import datetime
-from AttendanceAdapters import AttendanceAdapterInterface
+from AttendanceAdapters.AttendanceAdapterInterface import AttendanceAdapterInterface
 
 import logging
 
 
-class FileAdapter(AttendanceAdapterInterface):
+class FileAttendanceAdapter(AttendanceAdapterInterface):
     """
     Adapter to use if you want to save Attendance as a file
 

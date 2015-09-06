@@ -1,9 +1,10 @@
 __author__ = 'kocsenc'
-from DatastoreAdapters.DatastoreAdapterInterface import AdapterInterface
+
+from DatastoreAdapters.DatastoreAdapterInterface import DatastoreAdapterInterface
 from Student import Student
 
 
-class FileAdapter(AdapterInterface):
+class FileDatastoreAdapter(DatastoreAdapterInterface):
     """
     Adapter to use if you want to save things as a file
 
