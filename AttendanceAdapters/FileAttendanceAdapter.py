@@ -27,5 +27,6 @@ class FileAttendanceAdapter(AttendanceAdapterInterface):
 
     def save(self, student_obj):
         with open(self.filename, 'a') as f:
-            to_write = "%s %s:%s" % (student_obj.first_name, student_obj.last_name, student_obj.rit_id)
+            to_write = "%s %s,%s" % (student_obj.first_name, student_obj.last_name, student_obj.rit_id)
             f.write(to_write + '\n')
+            logging.debug("Attendance file. \nWrote: %s to:\n%s" % (to_write, self.filename))

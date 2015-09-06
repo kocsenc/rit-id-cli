@@ -3,6 +3,7 @@ __author__ = "kocsenc"
 import re
 import getpass
 import hashlib
+import logging
 
 from DatastoreAdapters.FileDatastoreAdapter import FileDatastoreAdapter
 from AttendanceAdapters.FileAttendanceAdapter import FileAttendanceAdapter
@@ -10,9 +11,28 @@ from AttendanceAdapters.FileAttendanceAdapter import FileAttendanceAdapter
 
 def main():
     print(
-        "Welcome to the RIT ID check-in system. Data is safe & encrypted with SHA-256."
-        "It cannot be decrypted back.\n"
-        "Press 'q' to quit\n")
+        """
+     (~)
+      K
+     _C_
+  .-'-.-'-.
+ /        \\
+|   .-------'._
+|  / /  '.' '.\\
+|  \ \ @   @ / /
+|   '---------'
+|    _______|
+|  .'-+-+-+|
+|  '.-+-+-+|     Welcome to the RIT ID check-in system.
+|           |    Data is safe & encrypted with SHA-256, so no one can read it.
+'-.______.-'    Press 'q' to quit
+        """
+    )
+
+    # Set logging preferences (mostly for developers only)
+    logging.basicConfig(format='[%(levelname)s]: %(message)s', level=logging.WARNING)
+
+    # Setup your data store (storage) and attendance adapters.
 
     data_source = FileDatastoreAdapter('db.csv')
     attendance_adapter = FileAttendanceAdapter()
@@ -49,7 +69,6 @@ def collect(data_source, attendance_adapter, take_attendance=True):
         if take_attendance:
             check_in(attendance_adapter, student)
 
-
     else:
         print("Are you sure you swiped your RIT id? Try again.")
 
@@ -65,8 +84,8 @@ def register():
     lname = input("Last Name: ")
     rit_username = validate_username(input("RIT username: "))
 
-    # print("Name:\t\t", fname, lname)
-    # print("RIT username:\t", rit_username)
+    logging.debug("Name:\t\t", fname, lname)
+    logging.debug("RIT username:\t", rit_username)
     return fname, lname, rit_username
 
 
@@ -81,13 +100,39 @@ def validate_username(raw_username):
     return username
 
 
-def check_in(student):
+def check_in(adapter, student):
     """
     Creates a separate output file with the attendance of the children.
-    :param student: Student Object
+    :param adapter: The Attendance Adapter
+    :param student: The student object
+    :return:
     """
-    # TODO: Perform check in action
-    print("Thanks, %s. You are checked in! \t=====>\n\n" % student.first_name)
+    adapter.save(student)
+    print(mr_poo_message(top="Thanks, %s!" % student.first_name, bottom="You are checked in!"))
+
+
+def mr_poo_message(message="Woot", top=None, bottom=None):
+    offset = 32
+    p1 = top or message[:offset]
+    p2 = bottom or message[offset:]
+    poo = """
+    ,~~~~~~,
+   / ,     \\
+  /,~|_______\.
+ /~ (__________)
+(*)  ; (^)(^)':
+    =;  ____  ;
+      ; ''''  ;=
+{"}_   ' '""' ' _{"}    `~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.
+\__/     >  <   \__/   `'  %s
+  \    ,"   ",  /       |  %s
+   \  "       /"        ',____________________________________,"
+      "      "=
+       >     <
+      -`.   ,'
+      `--'\n
+""" % (p1, p2)
+    return poo
 
 
 if __name__ == "__main__":

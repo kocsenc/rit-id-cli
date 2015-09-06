@@ -2,7 +2,7 @@
 __pycache__/
 *.py[cod]
 
-out.csv
+db.csv
 
 # C extensions
 *.so
@@ -60,3 +60,5 @@ target/
 
 # PyCharm
 .idea/
+
+*.txt
