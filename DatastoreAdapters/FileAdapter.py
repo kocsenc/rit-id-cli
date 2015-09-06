@@ -1,5 +1,5 @@
 __author__ = 'kocsenc'
-from SaveAdapters.AdapterInterface import AdapterInterface
+from DatastoreAdapters.DatastoreAdapterInterface import AdapterInterface
 from Student import Student
 
 
