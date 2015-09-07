@@ -60,6 +60,7 @@ class Driver:
             if take_attendance:
                 if student.hashed_sid not in self.attendance_buffer:
                     self.check_in(student)
+                    self.attendance_buffer[student.hashed_sid] = student
                 else:
                     print(mr_poo_message(top="Oh my, %s!" % student.first_name, bottom="You already have checked in!"))
 

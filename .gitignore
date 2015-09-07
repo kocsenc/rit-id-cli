@@ -61,4 +61,4 @@ target/
 # PyCharm
 .idea/
 
-*.txt
+*.csv
