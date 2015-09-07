@@ -6,6 +6,7 @@ import hashlib
 import logging
 
 from DatastoreAdapters.FileDatastoreAdapter import FileDatastoreAdapter
+from DatastoreAdapters.SqliteAdapter import SqliteAdapter
 from AttendanceAdapters.FileAttendanceAdapter import FileAttendanceAdapter
 
 
@@ -21,7 +22,7 @@ class Driver:
         logging.basicConfig(format='[%(levelname)s]: %(message)s', level=logging.WARNING)
 
         # Setup your data store (storage) and attendance adapters.
-        self.data_source = data_source or FileDatastoreAdapter('db.csv')
+        self.data_source = data_source or SqliteAdapter()
         self.attendance_adapter = attendance_adapter or FileAttendanceAdapter()
         self.take_attendance = take_attendance
 
