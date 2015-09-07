@@ -64,8 +64,8 @@ class Driver:
                 else:
                     print(mr_poo_message(top="Oh my, %s!" % student.first_name, bottom="You already have checked in!"))
 
-            else:
-                print("Are you sure you swiped your RIT id? Try again.")
+        else:
+            print("Are you sure you swiped your RIT id? Try again.")
 
     def check_in(self, student):
         """
@@ -91,7 +91,7 @@ class Driver:
 
         logging.debug("Name:\t\t", fname, lname)
         logging.debug("RIT username:\t", rit_username)
-        return fname, lname, rit_username
+        return fname.strip(), lname.strip(), rit_username.strip()
 
     @staticmethod
     def _validate_username(raw_username):

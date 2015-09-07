@@ -2,6 +2,10 @@ __author__ = 'kocsenc'
 
 
 class DatastoreAdapterInterface:
+    """
+    self.student_dict = None
+    """
+
     def save(self, hashed_sid, fname, lname, rit_username, issue_number):
         raise NotImplementedError()
 
