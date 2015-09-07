@@ -16,7 +16,7 @@ class FileAttendanceAdapter(AttendanceAdapterInterface):
     fname,lname,rit_username
     """
 
-    def __init__(self, time_format='%m-%d-%Y %I:%M%p', extension='.txt'):
+    def __init__(self, time_format='%m-%d-%Y %I:%M%p', extension='.csv'):
         self.filename = datetime.today().strftime(time_format) + extension
 
         if os.path.isfile(self.filename):
