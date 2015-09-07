@@ -5,7 +5,6 @@ import getpass
 import hashlib
 import logging
 
-from DatastoreAdapters.FileDatastoreAdapter import FileDatastoreAdapter
 from DatastoreAdapters.SqliteAdapter import SqliteAdapter
 from AttendanceAdapters.FileAttendanceAdapter import FileAttendanceAdapter
 
